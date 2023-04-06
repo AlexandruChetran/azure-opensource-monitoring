@@ -1,0 +1,2718 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": "-- Grafana --",
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "target": {
+            "limit": 100,
+            "matchAny": false,
+            "tags": [],
+            "type": "dashboard"
+          },
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "gnetId": null,
+    "graphTooltip": 1,
+    "id": 143,
+    "iteration": 1635432212566,
+    "links": [],
+    "liveNow": false,
+    "panels": [
+      {
+        "collapsed": false,
+        "datasource": null,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 0
+        },
+        "id": 21,
+        "panels": [],
+        "title": "Pipeline agents",
+        "type": "row"
+      },
+      {
+        "datasource": "${DataSource}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "links": [
+              {
+                "targetBlank": true,
+                "title": "Show agentpool",
+                "url": "https://dev.azure.com/${AzureDevOpsOrg}/_settings/agentpools?poolId=${__field.labels.agentPoolID}﻿&view=agents"
+              }
+            ],
+            "mappings": [],
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "dark-red",
+                  "value": null
+                },
+                {
+                  "color": "#EAB839",
+                  "value": 1
+                },
+                {
+                  "color": "dark-green",
+                  "value": 4
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 9,
+          "w": 13,
+          "x": 0,
+          "y": 1
+        },
+        "id": 61,
+        "links": [],
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": true
+          },
+          "text": {},
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.2.2",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sort_desc(\nmax by (agentPoolID, agentPoolName) (\n  azure_devops_agentpool_info\n  * on (agentPoolID) group_left() (\n    count by(agentPoolID) (\n      azure_devops_agentpool_agent_info\n{enabled=\"true\",status=\"online\"}\n    )\n  )\n)\n)",
+            "format": "time_series",
+            "instant": true,
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "{{agentPoolName}}",
+            "refId": "A"
+          }
+        ],
+        "title": "Agent pools",
+        "type": "stat"
+      },
+      {
+        "datasource": "${DataSource}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "links": [
+              {
+                "targetBlank": true,
+                "title": "Show agentpool",
+                "url": "https://dev.azure.com/${AzureDevOpsOrg}/_settings/agentpools?poolId=${__field.labels.agentPoolID}﻿&view=agents"
+              }
+            ],
+            "mappings": [],
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "dark-red",
+                  "value": null
+                },
+                {
+                  "color": "#EAB839",
+                  "value": 1
+                },
+                {
+                  "color": "dark-green",
+                  "value": 4
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 9,
+          "w": 11,
+          "x": 13,
+          "y": 1
+        },
+        "id": 4,
+        "links": [],
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom"
+          },
+          "tooltip": {
+            "mode": "single"
+          }
+        },
+        "pluginVersion": "8.2.0",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sort_desc(\nmax by (agentPoolID, agentPoolName) (\n  azure_devops_agentpool_info\n  * on (agentPoolID) group_left() (\n    count by(agentPoolID) (\n      azure_devops_agentpool_agent_info\n{enabled=\"true\",status=\"online\"}\n    )\n  )\n)\n)",
+            "format": "time_series",
+            "instant": false,
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "{{agentPoolName}}",
+            "refId": "A"
+          }
+        ],
+        "title": "Agent pools",
+        "type": "timeseries"
+      },
+      {
+        "collapsed": false,
+        "datasource": null,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 10
+        },
+        "id": 12,
+        "panels": [],
+        "title": "Job queue",
+        "type": "row"
+      },
+      {
+        "cacheTimeout": null,
+        "datasource": "${DataSource}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "links": [
+              {
+                "targetBlank": true,
+                "title": "Show agentpool job queue",
+                "url": "https://dev.azure.com/${AzureDevOpsOrg}/_settings/agentpools?poolId=${__field.labels.agentPoolID}&view=jobs"
+              }
+            ],
+            "mappings": [
+              {
+                "options": {
+                  "match": "null",
+                  "result": {
+                    "color": "green",
+                    "text": "0"
+                  }
+                },
+                "type": "special"
+              }
+            ],
+            "max": 50,
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "#EAB839",
+                  "value": 10
+                },
+                {
+                  "color": "red",
+                  "value": 20
+                }
+              ]
+            },
+            "unit": "none"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 8,
+          "x": 0,
+          "y": 11
+        },
+        "id": 38,
+        "links": [],
+        "options": {
+          "displayMode": "lcd",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showUnfilled": true,
+          "text": {}
+        },
+        "pluginVersion": "8.2.2",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "azure_devops_agentpool_queue_length\n* on (agentPoolID) group_left(agentPoolName) (azure_devops_agentpool_info)",
+            "format": "time_series",
+            "instant": true,
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "{{agentPoolName}}",
+            "refId": "A"
+          }
+        ],
+        "title": "Queued jobs",
+        "type": "bargauge"
+      },
+      {
+        "cacheTimeout": null,
+        "datasource": "${DataSource}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "rgb(31, 120, 193)",
+              "mode": "fixed"
+            },
+            "mappings": [
+              {
+                "options": {
+                  "match": "null",
+                  "result": {
+                    "text": "0"
+                  }
+                },
+                "type": "special"
+              }
+            ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "none"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 4,
+          "x": 8,
+          "y": 11
+        },
+        "id": 9,
+        "interval": null,
+        "links": [],
+        "maxDataPoints": 100,
+        "options": {
+          "colorMode": "none",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.2.2",
+        "targets": [
+          {
+            "expr": "count (azure_devops_agentpool_agent_job)",
+            "format": "time_series",
+            "instant": false,
+            "intervalFactor": 1,
+            "refId": "A"
+          }
+        ],
+        "title": "Running jobs",
+        "type": "stat"
+      },
+      {
+        "cacheTimeout": null,
+        "datasource": "${DataSource}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "rgb(31, 120, 193)",
+              "mode": "fixed"
+            },
+            "mappings": [
+              {
+                "options": {
+                  "match": "null",
+                  "result": {
+                    "text": "N/A"
+                  }
+                },
+                "type": "special"
+              }
+            ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "none"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 4,
+          "x": 12,
+          "y": 11
+        },
+        "id": 10,
+        "interval": null,
+        "links": [],
+        "maxDataPoints": 100,
+        "options": {
+          "colorMode": "none",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.2.2",
+        "targets": [
+          {
+            "expr": "count(max_over_time(azure_devops_agentpool_agent_job[8h]))",
+            "format": "time_series",
+            "instant": false,
+            "intervalFactor": 1,
+            "refId": "A"
+          }
+        ],
+        "timeFrom": "8h",
+        "title": "Jobs",
+        "type": "stat"
+      },
+      {
+        "cacheTimeout": null,
+        "datasource": "${DataSource}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "rgb(31, 120, 193)",
+              "mode": "fixed"
+            },
+            "mappings": [
+              {
+                "options": {
+                  "match": "null",
+                  "result": {
+                    "text": "N/A"
+                  }
+                },
+                "type": "special"
+              }
+            ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "none"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 4,
+          "x": 16,
+          "y": 11
+        },
+        "id": 15,
+        "interval": null,
+        "links": [],
+        "maxDataPoints": 100,
+        "options": {
+          "colorMode": "none",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.2.2",
+        "targets": [
+          {
+            "expr": "count(max_over_time(azure_devops_agentpool_agent_job[1w]))",
+            "format": "time_series",
+            "instant": false,
+            "intervalFactor": 1,
+            "refId": "A"
+          }
+        ],
+        "timeFrom": "1w",
+        "title": "Jobs",
+        "type": "stat"
+      },
+      {
+        "cacheTimeout": null,
+        "datasource": "${DataSource}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "rgb(31, 120, 193)",
+              "mode": "fixed"
+            },
+            "mappings": [
+              {
+                "options": {
+                  "match": "null",
+                  "result": {
+                    "text": "N/A"
+                  }
+                },
+                "type": "special"
+              }
+            ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "none"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 4,
+          "x": 20,
+          "y": 11
+        },
+        "id": 49,
+        "interval": null,
+        "links": [],
+        "maxDataPoints": 100,
+        "options": {
+          "colorMode": "none",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.2.2",
+        "targets": [
+          {
+            "expr": "count(max_over_time(azure_devops_agentpool_agent_job[4w]))",
+            "format": "time_series",
+            "instant": false,
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": "4w",
+        "title": "Jobs",
+        "type": "stat"
+      },
+      {
+        "datasource": "${DataSource}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 10,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "never",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "s"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 5,
+          "w": 8,
+          "x": 0,
+          "y": 15
+        },
+        "id": 55,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom"
+          },
+          "tooltip": {
+            "mode": "single"
+          }
+        },
+        "pluginVersion": "8.1.2",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "avg by(agentPoolID) (\n  rate(azure_devops_stats_agentpool_builds_wait_sum[1h])\n  / rate(azure_devops_stats_agentpool_builds_wait_count[1h])\n)\n* on(agentPoolID) group_left(agentPoolName) (max by (agentPoolID,agentPoolName) (azure_devops_agentpool_info{isHosted=\"false\"}))",
+            "interval": "",
+            "legendFormat": "{{agentPoolName}}",
+            "queryType": "randomWalk",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Wait time (by pool)",
+        "type": "timeseries"
+      },
+      {
+        "datasource": "${DataSource}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 10,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "never",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "s"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 5,
+          "w": 8,
+          "x": 8,
+          "y": 15
+        },
+        "id": 57,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom"
+          },
+          "tooltip": {
+            "mode": "single"
+          }
+        },
+        "pluginVersion": "8.1.2",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "max by(agentPoolID) (\n  rate(azure_devops_stats_agentpool_builds_duration_sum[1h])\n  / rate(azure_devops_stats_agentpool_builds_duration_count[1h])\n)\n* on(agentPoolID) group_left(agentPoolName) (max by (agentPoolID,agentPoolName) (azure_devops_agentpool_info{isHosted=\"false\"}))",
+            "interval": "",
+            "legendFormat": "{{agentPoolName}}",
+            "queryType": "randomWalk",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Max build time (by pool)",
+        "type": "timeseries"
+      },
+      {
+        "datasource": "${DataSource}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 10,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "never",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "s"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 5,
+          "w": 8,
+          "x": 16,
+          "y": 15
+        },
+        "id": 58,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom"
+          },
+          "tooltip": {
+            "mode": "single"
+          }
+        },
+        "pluginVersion": "8.1.2",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "\nmax by(projectID) (\n  rate(azure_devops_stats_project_builds_duration_sum[1h])\n  / rate(azure_devops_stats_project_builds_duration_count[1h])\n)\n* on(agentPoolID) group_left(agentPoolName) (max by (agentPoolID,agentPoolName) (azure_devops_agentpool_info))",
+            "interval": "",
+            "legendFormat": "{{projectName}}",
+            "queryType": "randomWalk",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Max build time (by project)",
+        "type": "timeseries"
+      },
+      {
+        "datasource": "${DataSource}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 10,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "never",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "line+area"
+              }
+            },
+            "decimals": 0,
+            "links": [],
+            "mappings": [],
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "transparent",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 10
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 5,
+          "w": 24,
+          "x": 0,
+          "y": 20
+        },
+        "id": 37,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom"
+          },
+          "tooltip": {
+            "mode": "single"
+          }
+        },
+        "pluginVersion": "8.1.2",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "max by (agentPoolName) (\n  azure_devops_agentpool_queue_length\n  * on(agentPoolID) group_left(agentPoolName) (max by (agentPoolID,agentPoolName) (azure_devops_agentpool_info))\n)",
+            "interval": "",
+            "legendFormat": "{{agentPoolName}}",
+            "refId": "A"
+          }
+        ],
+        "thresholds": [
+          {
+            "colorMode": "critical",
+            "op": "gt",
+            "value": 10,
+            "visible": true
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Queue length",
+        "type": "timeseries"
+      },
+      {
+        "datasource": "${DataSource}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 10,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "never",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "decimals": 1,
+            "links": [],
+            "mappings": [],
+            "max": 1,
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "percentunit"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 9,
+          "w": 12,
+          "x": 0,
+          "y": 25
+        },
+        "id": 5,
+        "links": [],
+        "options": {
+          "legend": {
+            "calcs": [
+              "mean"
+            ],
+            "displayMode": "list",
+            "placement": "bottom"
+          },
+          "tooltip": {
+            "mode": "single"
+          }
+        },
+        "pluginVersion": "8.1.2",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "max by (agentPoolName, agentPoolID) (\n  azure_devops_agentpool_usage\n  * on(agentPoolID) group_left(agentPoolName) (max by (agentPoolID,agentPoolName) (azure_devops_agentpool_info))\n)",
+            "format": "time_series",
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "{{ agentPoolName }}",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Agent pool utilization",
+        "type": "timeseries"
+      },
+      {
+        "datasource": "${DataSource}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "custom": {
+              "align": null,
+              "displayMode": "auto",
+              "filterable": false
+            },
+            "decimals": 2,
+            "displayName": "",
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "agentPoolName"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Agent Pool"
+                },
+                {
+                  "id": "unit",
+                  "value": "short"
+                },
+                {
+                  "id": "decimals",
+                  "value": 2
+                },
+                {
+                  "id": "custom.align",
+                  "value": null
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Value"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Started"
+                },
+                {
+                  "id": "unit",
+                  "value": "dateTimeFromNow"
+                },
+                {
+                  "id": "custom.align",
+                  "value": null
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "agentPoolAgentName"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Agent"
+                },
+                {
+                  "id": "unit",
+                  "value": "short"
+                },
+                {
+                  "id": "decimals",
+                  "value": 2
+                },
+                {
+                  "id": "custom.align",
+                  "value": null
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "jobRequestId"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Job ID"
+                },
+                {
+                  "id": "unit",
+                  "value": "short"
+                },
+                {
+                  "id": "decimals",
+                  "value": 2
+                },
+                {
+                  "id": "custom.align",
+                  "value": null
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "definitionName"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Job name"
+                },
+                {
+                  "id": "unit",
+                  "value": "short"
+                },
+                {
+                  "id": "decimals",
+                  "value": 2
+                },
+                {
+                  "id": "custom.align",
+                  "value": null
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "planType"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Type"
+                },
+                {
+                  "id": "unit",
+                  "value": "short"
+                },
+                {
+                  "id": "decimals",
+                  "value": 2
+                },
+                {
+                  "id": "custom.align",
+                  "value": null
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "projectName"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Project"
+                },
+                {
+                  "id": "unit",
+                  "value": "short"
+                },
+                {
+                  "id": "decimals",
+                  "value": 2
+                },
+                {
+                  "id": "custom.align",
+                  "value": null
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 9,
+          "w": 12,
+          "x": 12,
+          "y": 25
+        },
+        "id": 6,
+        "links": [],
+        "options": {
+          "showHeader": true,
+          "sortBy": [
+            {
+              "desc": true,
+              "displayName": "Started"
+            }
+          ]
+        },
+        "pluginVersion": "8.2.2",
+        "targets": [
+          {
+            "expr": "label_replace(\r\n  ( \r\n    azure_devops_agentpool_agent_job{definitionName!=\"PoolMaintenance\"}\r\n    * on (agentPoolAgentID) group_left(agentPoolID,agentPoolAgentName) azure_devops_agentpool_agent_info\r\n    * on (agentPoolID) group_left(agentPoolName) (azure_devops_agentpool_info)\r\n  )\r\n  , \"projectID\", \"$1\", \"scopeID\", \"^(.+)$\"\r\n)\r\n* on (projectID) group_left(projectName) (azure_devops_project_info)\r\n\r\n* 1000",
+            "format": "table",
+            "instant": true,
+            "intervalFactor": 1,
+            "refId": "A"
+          }
+        ],
+        "title": "Running jobs",
+        "transformations": [
+          {
+            "id": "merge",
+            "options": {
+              "reducers": []
+            }
+          },
+          {
+            "id": "organize",
+            "options": {
+              "excludeByName": {
+                "Time": true,
+                "agentPoolAgentID": true,
+                "agentPoolID": true,
+                "app": true,
+                "definitionID": true,
+                "job": true,
+                "jobRequestId": true,
+                "namespace": true,
+                "planType": false,
+                "pod": true,
+                "projectID": true,
+                "scopeID": true
+              },
+              "indexByName": {
+                "Time": 0,
+                "Value": 16,
+                "agentPoolAgentID": 1,
+                "agentPoolAgentName": 3,
+                "agentPoolID": 4,
+                "agentPoolName": 2,
+                "app": 5,
+                "definitionID": 6,
+                "definitionName": 8,
+                "job": 9,
+                "jobRequestId": 10,
+                "namespace": 11,
+                "planType": 12,
+                "pod": 13,
+                "projectID": 14,
+                "projectName": 7,
+                "scopeID": 15
+              },
+              "renameByName": {
+                "agentPoolAgentName": "Agent",
+                "agentPoolName": "Pool",
+                "definitionName": "Definition",
+                "planType": "Type",
+                "projectName": "Project"
+              }
+            }
+          }
+        ],
+        "type": "table"
+      },
+      {
+        "datasource": "${DataSource}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 10,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "never",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "decimals": 0,
+            "links": [],
+            "mappings": [],
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 9,
+          "w": 12,
+          "x": 0,
+          "y": 34
+        },
+        "id": 2,
+        "links": [],
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom"
+          },
+          "tooltip": {
+            "mode": "single"
+          }
+        },
+        "pluginVersion": "8.1.2",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum by (agentPoolName, agentPoolID) (\r\n  azure_devops_agentpool_info\r\n  * on (agentPoolID) group_left() (\r\n    sum by(agentPoolID) (\r\n      azure_devops_agentpool_agent_info\r\n      * on (agentPoolAgentID) group_left() (\r\n        count by (agentPoolAgentID) (azure_devops_agentpool_agent_job{definitionName!=\"PoolMaintenance\"})\r\n      )\r\n    )\r\n  )\r\n)",
+            "format": "time_series",
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "{{ agentPoolName }}",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Running agent jobs",
+        "type": "timeseries"
+      },
+      {
+        "datasource": "${DataSource}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "custom": {
+              "align": null,
+              "displayMode": "auto",
+              "filterable": false
+            },
+            "decimals": 2,
+            "displayName": "",
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "agentPoolName"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Agent Pool"
+                },
+                {
+                  "id": "unit",
+                  "value": "short"
+                },
+                {
+                  "id": "decimals",
+                  "value": 2
+                },
+                {
+                  "id": "custom.align",
+                  "value": null
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Value"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Started"
+                },
+                {
+                  "id": "unit",
+                  "value": "dateTimeFromNow"
+                },
+                {
+                  "id": "custom.align",
+                  "value": null
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "agentPoolAgentName"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Agent"
+                },
+                {
+                  "id": "unit",
+                  "value": "short"
+                },
+                {
+                  "id": "decimals",
+                  "value": 2
+                },
+                {
+                  "id": "custom.align",
+                  "value": null
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "jobRequestId"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Job ID"
+                },
+                {
+                  "id": "unit",
+                  "value": "short"
+                },
+                {
+                  "id": "decimals",
+                  "value": 2
+                },
+                {
+                  "id": "custom.align",
+                  "value": null
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "definitionName"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Job name"
+                },
+                {
+                  "id": "unit",
+                  "value": "short"
+                },
+                {
+                  "id": "decimals",
+                  "value": 2
+                },
+                {
+                  "id": "custom.align",
+                  "value": null
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "planType"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Type"
+                },
+                {
+                  "id": "unit",
+                  "value": "short"
+                },
+                {
+                  "id": "decimals",
+                  "value": 2
+                },
+                {
+                  "id": "custom.align",
+                  "value": null
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "projectName"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Project"
+                },
+                {
+                  "id": "unit",
+                  "value": "short"
+                },
+                {
+                  "id": "decimals",
+                  "value": 2
+                },
+                {
+                  "id": "custom.align",
+                  "value": null
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 9,
+          "w": 12,
+          "x": 12,
+          "y": 34
+        },
+        "id": 7,
+        "links": [],
+        "options": {
+          "showHeader": true,
+          "sortBy": [
+            {
+              "desc": true,
+              "displayName": "Started"
+            }
+          ]
+        },
+        "pluginVersion": "8.2.2",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "label_replace(\r\n  ( \r\n    max_over_time(azure_devops_agentpool_agent_job{definitionName!=\"PoolMaintenance\"}[6h])\r\n    * on (agentPoolAgentID) group_left(agentPoolID,agentPoolAgentName) azure_devops_agentpool_agent_info\r\n    * on (agentPoolID) group_left(agentPoolName) (azure_devops_agentpool_info)\r\n  )\r\n  , \"projectID\", \"$1\", \"scopeID\", \"^(.+)$\"\r\n)\r\n* on (projectID) group_left(projectName) (azure_devops_project_info)\r\n\r\n* 1000",
+            "format": "table",
+            "instant": true,
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "",
+            "refId": "A"
+          }
+        ],
+        "title": "Job history",
+        "transformations": [
+          {
+            "id": "organize",
+            "options": {
+              "excludeByName": {
+                "Time": true,
+                "agentPoolAgentID": true,
+                "agentPoolID": true,
+                "app": true,
+                "definitionID": true,
+                "job": true,
+                "jobRequestId": true,
+                "namespace": true,
+                "pod": true,
+                "projectID": true,
+                "scopeID": true
+              },
+              "indexByName": {
+                "Time": 0,
+                "Value": 16,
+                "agentPoolAgentID": 1,
+                "agentPoolAgentName": 3,
+                "agentPoolID": 4,
+                "agentPoolName": 2,
+                "app": 5,
+                "definitionID": 6,
+                "definitionName": 8,
+                "job": 9,
+                "jobRequestId": 10,
+                "namespace": 11,
+                "planType": 12,
+                "pod": 13,
+                "projectID": 14,
+                "projectName": 7,
+                "scopeID": 15
+              },
+              "renameByName": {
+                "agentPoolAgentID": "",
+                "agentPoolAgentName": "Agent",
+                "agentPoolName": "Pool",
+                "definitionName": "Definition",
+                "projectName": "Project"
+              }
+            }
+          }
+        ],
+        "type": "table"
+      },
+      {
+        "collapsed": false,
+        "datasource": null,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 43
+        },
+        "id": 63,
+        "panels": [],
+        "title": "Project info",
+        "type": "row"
+      },
+      {
+        "datasource": "${DataSource}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "commits"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 9,
+          "x": 0,
+          "y": 44
+        },
+        "id": 65,
+        "options": {
+          "colorMode": "none",
+          "graphMode": "none",
+          "justifyMode": "center",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.2.2",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum( \n  increase(azure_devops_repository_commits[31d])\n  * on (projectID) group_left(projectName) (azure_devops_project_info{projectName=\"$Project\"})\n)",
+            "instant": true,
+            "interval": "",
+            "legendFormat": "last 31 days",
+            "queryType": "randomWalk",
+            "refId": "A"
+          },
+          {
+            "exemplar": true,
+            "expr": "sum( \n  increase(azure_devops_repository_commits[31d])\n  * on (projectID) group_left(projectName) (azure_devops_project_info{projectName=\"$Project\"})\n) / 31",
+            "hide": false,
+            "instant": true,
+            "interval": "",
+            "legendFormat": "per day",
+            "queryType": "randomWalk",
+            "refId": "D"
+          }
+        ],
+        "title": "SourceCode",
+        "type": "stat"
+      },
+      {
+        "datasource": "${DataSource}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "runs"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 9,
+          "x": 9,
+          "y": 44
+        },
+        "id": 67,
+        "options": {
+          "colorMode": "none",
+          "graphMode": "none",
+          "justifyMode": "center",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.2.2",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum(\n  sum by(projectID, buildDefinitionID) (\n    increase(azure_devops_stats_project_builds_duration_count[31d])\n  )\n  * on(projectID) group_left(projectName) (azure_devops_project_info{projectName=\"$Project\"})\n)",
+            "hide": false,
+            "instant": true,
+            "interval": "",
+            "legendFormat": "last 31 days",
+            "queryType": "randomWalk",
+            "refId": "B"
+          },
+          {
+            "exemplar": true,
+            "expr": "sum(\n  sum by(projectID, buildDefinitionID) (\n    increase(azure_devops_stats_project_builds_duration_count[31d])\n  )\n  * on(projectID) group_left(projectName) (azure_devops_project_info{projectName=\"$Project\"})\n) / 31",
+            "hide": false,
+            "instant": true,
+            "interval": "",
+            "legendFormat": "per day",
+            "queryType": "randomWalk",
+            "refId": "A"
+          }
+        ],
+        "title": "Pipeline jobs",
+        "type": "stat"
+      },
+      {
+        "datasource": "${DataSource}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "percentunit"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 6,
+          "x": 18,
+          "y": 44
+        },
+        "id": 69,
+        "options": {
+          "colorMode": "none",
+          "graphMode": "none",
+          "justifyMode": "center",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {
+            "titleSize": 1
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.2.2",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum(\n  sum by(projectID, buildDefinitionID) (\n    increase(azure_devops_stats_project_builds_duration_count{result=\"succeeded\"}[31d])\n  )\n  * on(projectID) group_left(projectName) (azure_devops_project_info{projectName=\"$Project\"})\n)\n/\nsum(\n  sum by(projectID, buildDefinitionID) (\n    increase(azure_devops_stats_project_builds_duration_count[31d])\n  )\n  * on(projectID) group_left(projectName) (azure_devops_project_info{projectName=\"$Project\"})\n)",
+            "hide": false,
+            "instant": true,
+            "interval": "",
+            "legendFormat": "pipeline success",
+            "queryType": "randomWalk",
+            "refId": "C"
+          }
+        ],
+        "title": "Pipeline success rate",
+        "type": "stat"
+      },
+      {
+        "datasource": "${DataSource}",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "custom": {
+              "align": null,
+              "displayMode": "auto",
+              "filterable": false
+            },
+            "links": [
+              {
+                "targetBlank": true,
+                "title": "Show PullRequest",
+                "url": "https://dev.azure.com/${AzureDevOpsOrg}/${Project}/_git/${__data.fields.Repository}/pullrequest/${__data.fields.pullrequestID}"
+              }
+            ],
+            "mappings": [],
+            "max": 2419200,
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "yellow",
+                  "value": 86400
+                },
+                {
+                  "color": "orange",
+                  "value": 604800
+                },
+                {
+                  "color": "red",
+                  "value": 2419200
+                }
+              ]
+            },
+            "unit": "s"
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Project"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 73
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "PullRequest"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": null
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Age"
+              },
+              "properties": [
+                {
+                  "id": "custom.displayMode",
+                  "value": "basic"
+                },
+                {
+                  "id": "custom.width",
+                  "value": 214
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "State"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 116
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Repository"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 114
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "ID"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "string"
+                },
+                {
+                  "id": "custom.width",
+                  "value": 68
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 11,
+          "w": 12,
+          "x": 0,
+          "y": 51
+        },
+        "id": 71,
+        "options": {
+          "showHeader": true,
+          "sortBy": [
+            {
+              "desc": false,
+              "displayName": "Age"
+            }
+          ]
+        },
+        "pluginVersion": "8.2.2",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "time() - \r\n(\r\n  ( \r\n    azure_devops_pullrequest_info{isDraft=\"false\"}\r\n    * on (projectID) group_left(projectName) azure_devops_project_info{projectName=\"$Project\"}\r\n  )\r\n  * on (repositoryID) group_left(repositoryName) azure_devops_repository_info\r\n  * on (pullrequestID) group_left(job) azure_devops_pullrequest_status{type=\"created\"}\r\n)",
+            "format": "table",
+            "instant": true,
+            "interval": "",
+            "legendFormat": "",
+            "queryType": "randomWalk",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Open Pull requests",
+        "transformations": [
+          {
+            "id": "organize",
+            "options": {
+              "excludeByName": {
+                "Time": true,
+                "Value": false,
+                "app": true,
+                "isDraft": true,
+                "job": true,
+                "namespace": true,
+                "pod": true,
+                "projectID": true,
+                "projectName": true,
+                "pullrequestID": false,
+                "repositoryID": true,
+                "sourceBranch": true,
+                "status": true,
+                "targetBranch": true
+              },
+              "indexByName": {
+                "Time": 4,
+                "Value": 17,
+                "app": 5,
+                "creator": 6,
+                "isDraft": 7,
+                "job": 8,
+                "namespace": 9,
+                "pod": 10,
+                "projectID": 11,
+                "projectName": 0,
+                "pullrequestID": 2,
+                "pullrequestTitle": 3,
+                "repositoryID": 12,
+                "repositoryName": 1,
+                "sourceBranch": 13,
+                "status": 14,
+                "targetBranch": 15,
+                "voteStatus": 16
+              },
+              "renameByName": {
+                "Value": "Age",
+                "creator": "Creator",
+                "projectName": "Project",
+                "pullrequestID": "ID",
+                "pullrequestTitle": "PullRequest",
+                "repositoryName": "Repository",
+                "voteStatus": "State"
+              }
+            }
+          }
+        ],
+        "type": "table"
+      },
+      {
+        "datasource": "${DataSource}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "custom": {
+              "align": null,
+              "displayMode": "auto",
+              "filterable": false
+            },
+            "links": [
+              {
+                "title": "Show pipeline",
+                "url": "https://dev.azure.com/${AzureDevOpsOrg}/${Project}/_build?definitionId=${__data.fields.DefID}"
+              }
+            ],
+            "mappings": [],
+            "max": 3600,
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "yellow",
+                  "value": 120
+                },
+                {
+                  "color": "orange",
+                  "value": 600
+                },
+                {
+                  "color": "red",
+                  "value": 1800
+                }
+              ]
+            },
+            "unit": "s"
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Duration"
+              },
+              "properties": [
+                {
+                  "id": "custom.displayMode",
+                  "value": "basic"
+                },
+                {
+                  "id": "custom.width",
+                  "value": 283
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Build definition"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": null
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "DefID"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 102
+                },
+                {
+                  "id": "unit",
+                  "value": "string"
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 11,
+          "w": 12,
+          "x": 12,
+          "y": 51
+        },
+        "id": 73,
+        "links": [],
+        "options": {
+          "showHeader": true,
+          "sortBy": [
+            {
+              "desc": true,
+              "displayName": "Duration"
+            }
+          ]
+        },
+        "pluginVersion": "8.2.2",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "label_join(\n  max by(projectID, buildDefinitionID) (\n    azure_devops_stats_project_builds_duration_sum\n    / azure_devops_stats_project_builds_duration_count\n  )\n  * on(projectID) group_left(projectName) (azure_devops_project_info{projectName=\"$Project\"})\n  * on(buildDefinitionID) group_left(buildDefinitionName, path) (azure_devops_build_definition_info)\n  , \"buildDefinitionFullname\", \"\\\\\",  \"path\", \"buildDefinitionName\"\n)",
+            "format": "table",
+            "instant": true,
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "{{buildDefinitionFullname}}",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Max build duration time",
+        "transformations": [
+          {
+            "id": "organize",
+            "options": {
+              "excludeByName": {
+                "Time": true,
+                "buildDefinitionID": false,
+                "buildDefinitionName": true,
+                "path": true,
+                "projectID": true,
+                "projectName": true
+              },
+              "indexByName": {
+                "Time": 0,
+                "Value": 7,
+                "buildDefinitionFullname": 2,
+                "buildDefinitionID": 1,
+                "buildDefinitionName": 3,
+                "path": 4,
+                "projectID": 5,
+                "projectName": 6
+              },
+              "renameByName": {
+                "Value": "Duration",
+                "buildDefinitionFullname": "Build definition",
+                "buildDefinitionID": "DefID"
+              }
+            }
+          }
+        ],
+        "type": "table"
+      },
+      {
+        "datasource": "${DataSource}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 10,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "never",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "links": [
+              {
+                "targetBlank": true,
+                "title": "Show pipeline",
+                "url": "https://dev.azure.com/${AzureDevOpsOrg}/${Project}/_build?definitionId=${__field.labels.buildDefinitionID}"
+              }
+            ],
+            "mappings": [],
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "s"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 12,
+          "x": 0,
+          "y": 62
+        },
+        "id": 75,
+        "links": [],
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom"
+          },
+          "tooltip": {
+            "mode": "single"
+          }
+        },
+        "pluginVersion": "8.1.2",
+        "targets": [
+          {
+            "expr": "topk(\r\n  5,\r\n  max by(projectID, buildDefinitionID) (\r\n    azure_devops_stats_project_builds_wait_sum\r\n    / azure_devops_stats_project_builds_wait_count\r\n  )\r\n  * on(projectID) group_left(projectName) (azure_devops_project_info{projectName=\"$Project\"})\r\n  * on(buildDefinitionID) group_left(buildDefinitionName) (azure_devops_build_definition_info)\r\n)",
+            "format": "time_series",
+            "intervalFactor": 1,
+            "legendFormat": "{{buildDefinitionName}}",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Max wait duration time",
+        "type": "timeseries"
+      },
+      {
+        "datasource": "${DataSource}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 10,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "never",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "links": [
+              {
+                "targetBlank": true,
+                "title": "Show pipeline",
+                "url": "https://dev.azure.com/${AzureDevOpsOrg}/${Project}/_build?definitionId=${__field.labels.buildDefinitionID}"
+              }
+            ],
+            "mappings": [],
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "s"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 12,
+          "x": 12,
+          "y": 62
+        },
+        "id": 77,
+        "links": [],
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom"
+          },
+          "tooltip": {
+            "mode": "single"
+          }
+        },
+        "pluginVersion": "8.1.2",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "topk(\n  5,\n  max by(projectID, buildDefinitionID) (\n    azure_devops_stats_project_builds_duration_sum\n    / azure_devops_stats_project_builds_duration_count\n  )\n  * on(projectID) group_left(projectName) (azure_devops_project_info{projectName=\"$Project\"})\n  * on(buildDefinitionID) group_left(buildDefinitionName) (azure_devops_build_definition_info)\n)",
+            "format": "time_series",
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "{{buildDefinitionName}}",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Max build duration time",
+        "type": "timeseries"
+      },
+      {
+        "datasource": "${DataSource}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "links": [],
+            "mappings": [],
+            "max": 1000000000,
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "#EAB839",
+                  "value": 500000000
+                },
+                {
+                  "color": "red",
+                  "value": 1000000000
+                }
+              ]
+            },
+            "unit": "bytes"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 68
+        },
+        "id": 79,
+        "links": [],
+        "options": {
+          "displayMode": "gradient",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "last"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showUnfilled": true,
+          "text": {}
+        },
+        "pluginVersion": "8.2.2",
+        "targets": [
+          {
+            "expr": "topk(\n  5,\n  azure_devops_repository_stats{type=\"size\"}\n  * on(projectID) group_left(projectName) (azure_devops_project_info{projectName=\"$Project\"})\n  * on(repositoryID) group_left(repositoryName) (azure_devops_repository_info)\n)",
+            "format": "time_series",
+            "instant": true,
+            "intervalFactor": 1,
+            "legendFormat": "{{repositoryName}}",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Repo size",
+        "type": "bargauge"
+      },
+      {
+        "aggregate": "MAX",
+        "color": {
+          "colorScheme": "interpolateGreens",
+          "colorSpace": "RGB",
+          "customColors": [
+            {
+              "$$hashKey": "object:149",
+              "color": "#006837"
+            },
+            {
+              "$$hashKey": "object:150",
+              "color": "#aa0526"
+            }
+          ],
+          "mode": "SPECTRUM",
+          "nullColor": "transparent"
+        },
+        "data": {
+          "decimals": 0,
+          "unitFormat": "short"
+        },
+        "datasource": "${DataSource}",
+        "fragment": "HOUR",
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 68
+        },
+        "id": 81,
+        "legend": {
+          "show": false
+        },
+        "pluginVersion": "7.5.3",
+        "scale": {
+          "max": null,
+          "min": 0
+        },
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum( \n  increase(azure_devops_repository_commits[1h])\n  * on (projectID) group_left(projectName) (azure_devops_project_info{projectName=\"$Project\"})\n)",
+            "interval": "",
+            "legendFormat": "",
+            "queryType": "randomWalk",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": "31d",
+        "title": "Commits",
+        "tooltip": {
+          "show": true
+        },
+        "type": "petrslavotinek-carpetplot-panel",
+        "xAxis": {
+          "labelFormat": "%a %m/%d",
+          "minBucketWidthToShowWeekends": 4,
+          "show": true,
+          "showCrosshair": true,
+          "showWeekends": true
+        },
+        "yAxis": {
+          "show": true,
+          "showCrosshair": false
+        }
+      }
+    ],
+    "refresh": "",
+    "schemaVersion": 31,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+      "list": [
+        {
+          "description": null,
+          "error": null,
+          "hide": 0,
+          "includeAll": false,
+          "label": null,
+          "multi": false,
+          "name": "DataSource",
+          "options": [],
+          "query": "prometheus",
+          "queryValue": "",
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "type": "datasource"
+        },
+        {
+          "allValue": null,
+          "datasource": "${DataSource}",
+          "definition": "label_values(azure_devops_project_info, projectName)",
+          "description": null,
+          "error": null,
+          "hide": 0,
+          "includeAll": false,
+          "label": null,
+          "multi": false,
+          "name": "Project",
+          "options": [],
+          "query": {
+            "query": "label_values(azure_devops_project_info, projectName)",
+            "refId": "StandardVariableQuery"
+          },
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 1,
+          "type": "query"
+        },
+        {
+          "description": null,
+          "error": null,
+          "hide": 2,
+          "label": null,
+          "name": "AzureDevOpsOrg",
+          "query": "example",
+          "skipUrlSync": false,
+          "type": "constant"
+        }
+      ]
+    },
+    "time": {
+      "from": "now-12h",
+      "to": "now"
+    },
+    "timepicker": {
+      "hidden": false,
+      "refresh_intervals": [
+        "",
+        "1m",
+        "5m",
+        "15m",
+        "30m",
+        "1h",
+        "2h",
+        "1d"
+      ],
+      "time_options": [
+        "5m",
+        "15m",
+        "1h",
+        "6h",
+        "12h",
+        "24h",
+        "2d",
+        "7d",
+        "30d"
+      ]
+    },
+    "timezone": "",
+    "title": "Azure DevOps example",
+    "uid": "SFkW5VKnk",
+    "version": 8
+  }
