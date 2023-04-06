@@ -56,7 +56,6 @@ services:
     labels:
       org.label-schema.group: "monitoring"
 
-  
   devops_azure_exporter:
     image: webdevops/azure-devops-exporter
     container_name: az-devops-exporter
